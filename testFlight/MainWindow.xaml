@@ -1,0 +1,70 @@
+﻿<Window x:Class="testFlight.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:testFlight" xmlns:viewmodels="clr-namespace:testFlight.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <ListView ItemsSource="{Binding Flight.Passengers}" 
+                 Padding="10" 
+                 Grid.Row="0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Номер рейса">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding Flight.Number}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Время отправления">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding Flight.DepartureTime}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="ФИО">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding FIO}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style BasedOn="{StaticResource {x:Type GridViewColumnHeader}}" TargetType="{x:Type GridViewColumnHeader}">                            
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Foreground" Value="#FF29405B" />
+                            <Setter Property="FontSize" Value="20" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="5,5,0,5"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Content="Загрузить"                
+                HorizontalAlignment="Left"                
+                Command="{Binding OpenFileCommand}"/>
+
+            <Button Content="Сохранить"                
+                HorizontalAlignment="Left"                
+                Command="{Binding SaveFileCommand}"/>           
+        </StackPanel>
+        
+    </Grid>
+</Window>
